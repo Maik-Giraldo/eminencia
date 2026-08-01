@@ -2,20 +2,20 @@ spring:
   application:
     name: gestionusuarios
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/eminencia
-    username: root
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource: # Configuracion de base de datos
+    url: jdbc:mysql://localhost:3306/eminencia # Url de nuestra base de datos y nombre
+    username: root # Usuario
+    password: # Contraseña
+    driver-class-name: com.mysql.cj.jdbc.Driver # Driver para poder usarla (mysql)
 
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-    properties:
+  jpa: # Configuración de JPA (Java Persistence Api)
+    hibernate: # ORM (Object Relational Mapping)
+      ddl-auto: none # Para que se actualice la base de datos automaticamente (pero es peligroso)
+    show-sql: true # Ver las sql que se ejecutan en consola
+    properties: # Propiedades de Hibernate
       hibernate:
-        format-sql: true
+        format-sql: true # Darle un formato a las consultas que se muestran en consola
     database-platform: org.hibernate.dialect.MySQLDialect
 
 server:
-  port: 9090
+  port: 9090 # Puerto en donde va a correr nuestra aplicación
