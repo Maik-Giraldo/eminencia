@@ -1,5 +1,7 @@
 package com.eminencia.gestionusuarios.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.eminencia.gestionusuarios.dto.UserRequestDTO;
@@ -9,13 +11,25 @@ import com.eminencia.gestionusuarios.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@Service // bean 
+@Service // bean
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-    
-    public UserResponseDTO createUser(UserRequestDTO request) {
+
+    /**
+     * Método para crear usuarios
+     * 
+     * @param request
+     * @return
+     */
+    public UserResponseDTO createUser(UserRequestDTO request) throws Exception {
+        Optional<Users> userFound = userRepository.findFirstByUsername(request.getUsername());
+
+        if (userFound.isPresent()) {
+            throw new Exception("El nombre ya esta en");
+        }
+        
         Users user = new Users();
         user.setUsername(request.getUsername());
         user.setAge(request.getAge());

@@ -1,5 +1,7 @@
 package com.eminencia.gestionusuarios.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -7,5 +9,5 @@ import com.eminencia.gestionusuarios.entity.Users;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long>{
-
+    Optional<Users> findFirstByUsername(String username);
 }
