@@ -1,5 +1,7 @@
 package com.eminencia.gestionusuarios.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class UserService {
         Optional<Users> userFound = userRepository.findFirstByUsername(request.getUsername());
 
         if (userFound.isPresent()) {
-            throw new Exception("El nombre ya esta en");
+            throw new Exception("El nombre ya esta en uso");
         }
         
         Users user = new Users();
@@ -41,6 +43,23 @@ public class UserService {
         response.setUsername(user.getUsername());
         response.setAge(user.getAge());
         response.setEmail(user.getEmail());
+
+        return response;
+    }
+
+    public List<UserResponseDTO> getAllUsers() {
+        List<UserResponseDTO> response = new ArrayList<>();
+        List<Users> usersFound = userRepository.findAll();
+        
+        for (Users userFound : usersFound) {
+            UserResponseDTO user = new UserResponseDTO();
+            user.setId(userFound.getId());
+            user.setUsername(userFound.getUsername());
+            user.setAge(userFound.getAge());
+            user.setEmail(userFound.getEmail());
+
+            response.add(user);
+        }
 
         return response;
     }
