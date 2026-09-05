@@ -47,6 +47,11 @@ public class UserService {
         return response;
     }
 
+    /**
+     * Metodo para obtener todos los usuarios
+     * 
+     * @return
+     */
     public List<UserResponseDTO> getAllUsers() {
         List<UserResponseDTO> response = new ArrayList<>();
         List<Users> usersFound = userRepository.findAll();
@@ -60,6 +65,25 @@ public class UserService {
 
             response.add(user);
         }
+
+        return response;
+    }
+
+    public UserResponseDTO getUser(Long id) throws Exception{
+        Optional<Users> userFound = userRepository.findById(id);
+
+        if(userFound.isEmpty()) {
+            throw new Exception("usuario no encontrado");
+        }
+
+        Users user = userFound.get();
+
+
+        UserResponseDTO response = new UserResponseDTO();
+        response.setId(user.getId());
+        response.setAge(user.getAge());
+        response.setUsername(user.getUsername());
+        response.setEmail(user.getEmail());
 
         return response;
     }
